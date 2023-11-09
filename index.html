@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="Css/Style.css" />
+    <title>Weather-Music</title>
+  </head>
+  <body>
+    <section class="container">
+      <video class="video" autoplay muted loop>
+        <source id="video-source" src="video/video1.mp4" />
+      </video>
+
+      <div class="caixa">
+        <div class="procura">
+          <button>
+            <img src="assets/lupa.png" alt="icone-lupa" />
+          </button>
+          <input
+            id="input-busca"
+            placeholder="Insira o nome da sua cidade. . ."
+            type="text"
+          />
+        </div>
+
+        <div class="envolope">
+          <div class="conteudo-clima">
+            <img class="icone-tempo" src="assets/01d.png" alt="icone-tempo" />
+            <h3 class="nome-cidade">paris</h3>
+            <h3 class="temperatura">23°C</h3>
+
+            <p class="maxTemperatura">Máx:23°C</p>
+            <p class="minTemperatura">Mín:21°C</p>
+          </div>
+          <div class="conteudo-musica">
+            <img
+              src="assets/Musica.png"
+              alt="musica-icon"
+              class="icone-musica"
+            />
+            <h2>Playlists</h2>
+            <ul class="playlist-caixa">
+              <li>
+                <img src="assets/spotifty.png" alt="spotifty-icon" />
+                <p>Nirvana</p>
+              </li>
+              <li>
+                <img src="assets/spotifty.png" alt="spotifty-icon" />
+                <p>Nirvana</p>
+              </li>
+              <li>
+                <img src="assets/spotifty.png" alt="spotifty-icon" />
+                <p>Nirvana</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
