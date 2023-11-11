@@ -1,5 +1,15 @@
 const input = document.getElementById("input-busca");
 
+const apiKey = "f09ada60b7a7d1c47ec6a338e0d963ed";
+
+function movimentoInput(inputValue) {
+  const visibility = input.style.visibility;
+
+  inputValue && procurarCidade(inputValue);
+
+  visibility === "hidden" ? abrirInput() : fecharInput();
+}
+
 function botaoDeBusca() {
   const inputValue = input.value;
   movimentoInput(inputValue);
@@ -20,14 +30,6 @@ function abrirInput() {
   input.style.transition = "all 0.5s ease-in-out 0s";
 }
 
-function movimentoInput(inputValue) {
-  const visibility = input.style.visibility;
-
-  console.log(inputValue);
-
-  visibility === "hidden" ? abrirInput() : fecharInput();
-}
-
 input.addEventListener("keyup", function (event) {
   if (event.keyCode === 13) {
     const valorInput = input.value;
@@ -38,3 +40,38 @@ input.addEventListener("keyup", function (event) {
 document.addEventListener("DOMContentLoaded", () => {
   fecharInput();
 });
+
+async function procurarCidade(city) {
+  try {
+    const dados = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=pt_br`
+    );
+
+    if (dados.status === 200) {
+      const resultado = await dados.json();
+
+      mostraClimaNatela(resultado);
+      console.log(resultado, "<<");
+    } else {
+      throw new Error();
+    }
+  } catch {
+    alert("A pesquisa por cidade está incorreta!");
+  }
+}
+function mostraClimaNatela(resultado) {
+  document.querySelector(
+    ".icone-tempo"
+  ).src = `./assets/${resultado.weather[0].icon}.png`;
+
+  document.querySelector(".nome-cidade").innerHTML = `${resultado.name}`;
+  document.querySelector(
+    ".temperatura"
+  ).innerHTML = `${resultado.main.temp.toFixed(0)}°C`;
+  document.querySelector(
+    ".maxTemperatura"
+  ).innerHTML = `Máx:${resultado.main.temp_max.toFixed(0)}°C`;
+  document.querySelector(
+    ".minTemperatura"
+  ).innerHTML = `Mín:${resultado.main.temp_min.toFixed(0)}°C`;
+}
