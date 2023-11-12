@@ -1,6 +1,8 @@
 const input = document.getElementById("input-busca");
-
 const apiKey = "f09ada60b7a7d1c47ec6a338e0d963ed";
+
+const clientID = "79573352d0be42b29c88be837412dd63";
+const clientSecret = "1d8335b71405417591bc55908d9d4dc5";
 
 function movimentoInput(inputValue) {
   const visibility = input.style.visibility;
@@ -26,7 +28,7 @@ function fecharInput() {
 function abrirInput() {
   input.style.visibility = "visible";
   input.style.width = "300px";
-  input.style.padding = "0.5rem .5rem .5rem 3.1rem";
+  input.style.padding = "0.5rem .5rem .5rem 3.3rem";
   input.style.transition = "all 0.5s ease-in-out 0s";
 }
 
@@ -50,6 +52,8 @@ async function procurarCidade(city) {
     if (dados.status === 200) {
       const resultado = await dados.json();
 
+      obterTopAlbunsPorPais(resultado.sys.country);
+
       mostraClimaNatela(resultado);
       console.log(resultado, "<<");
     } else {
@@ -59,6 +63,7 @@ async function procurarCidade(city) {
     alert("A pesquisa por cidade está incorreta!");
   }
 }
+
 function mostraClimaNatela(resultado) {
   document.querySelector(
     ".icone-tempo"
@@ -74,4 +79,62 @@ function mostraClimaNatela(resultado) {
   document.querySelector(
     ".minTemperatura"
   ).innerHTML = `Mín:${resultado.main.temp_min.toFixed(0)}°C`;
+}
+
+async function obterAcessoToken() {
+  const credentials = `${clientID}:${clientSecret}`;
+  const encodedCredentials = btoa(credentials);
+
+  const response = await fetch("https://accounts.spotify.com/api/token", {
+    method: "POST",
+    headers: {
+      Authorization: `Basic ${encodedCredentials}`,
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+
+    body: "grant_type=client_credentials",
+  });
+
+  const data = await response.json();
+  return data.access_token;
+}
+
+function obterDataAtual() {
+  const currentDate = new Date();
+  const ano = currentDate.getFullYear();
+  const mes = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+  const dia = currentDate.getDate().toString().padStart(2, "0");
+
+  return `${ano}-${mes}-${dia}`;
+}
+
+async function obterTopAlbunsPorPais(country) {
+  try {
+    const accessToken = await obterAcessoToken();
+
+    const dataAtual = obterDataAtual();
+
+    const url = `https://api.spotify.com/v1/browse/featured-playlists?country=${country}&timestamp=${dataAtual}T15%3A08%3A00&limit=3`;
+
+    const resultado = await fetch(`${url}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    if (resultado.status === 200) {
+      const data = await resultado.json();
+
+      const result = data.playlists.items.map((item) => ({
+        name: item.name,
+        image: item.images[0].url,
+      }));
+
+      console.log(result);
+    } else {
+      throw new Error();
+    }
+  } catch {
+    alert("Sua pesquisa por musica deu errado!");
+  }
 }
