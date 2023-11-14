@@ -32,6 +32,17 @@ function abrirInput() {
   input.style.transition = "all 0.5s ease-in-out 0s";
 }
 
+function abritEnvelope() {
+  document.querySelector(".envelope").style.visibility = "visible";
+  document.querySelector(".caixa").style.alignItems = "end";
+}
+
+function mostrarEnvelope() {
+  document.querySelector(".envolope").style.visibility = "visible";
+  document.querySelector(".caixa").style.alignItems = "end";
+  document.querySelector(".procura").style.position = "initial";
+}
+
 input.addEventListener("keyup", function (event) {
   if (event.keyCode === 13) {
     const valorInput = input.value;
@@ -50,12 +61,12 @@ async function procurarCidade(city) {
     );
 
     if (dados.status === 200) {
-      const resultado = await dados.json();
+      const result = await dados.json();
 
-      obterTopAlbunsPorPais(resultado.sys.country);
+      obterTopAlbunsPorPais(result.sys.country);
 
-      mostraClimaNatela(resultado);
-      console.log(resultado, "<<");
+      mostraClimaNatela(result);
+      mostrarEnvelope();
     } else {
       throw new Error();
     }
@@ -129,12 +140,27 @@ async function obterTopAlbunsPorPais(country) {
         name: item.name,
         image: item.images[0].url,
       }));
-
-      console.log(result);
+      mostrarMusicaNaTela(result);
     } else {
       throw new Error();
     }
   } catch {
     alert("Sua pesquisa por musica deu errado!");
   }
+}
+
+const ulElement = document.querySelector(".playlist-caixa");
+
+const liElement = ulElement.querySelectorAll("li");
+
+function mostrarMusicaNaTela(dados) {
+  liElement.forEach((liElement, index) => {
+    const imgElement = liElement.querySelector("img");
+    const pElement = liElement.querySelector("p");
+
+    imgElement.src = dados[index].image;
+    pElement.textContent = dados[index].name;
+  });
+
+  document.querySelector(".playlist-caixa").style.visibility = "visible";
 }
