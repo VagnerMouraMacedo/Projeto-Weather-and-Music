@@ -36,6 +36,13 @@ html {
   z-index: 1;
 }
 
+@media (max-width: 800px) {
+  .container {
+    height: auto;
+    padding: 2rem 2rem;
+  }
+}
+
 .caixa {
   display: flex;
   align-items: center;
@@ -93,7 +100,11 @@ html {
   border-radius: 100px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
-  /*filter: blur(4.5px);*/
+  filter: blur(4.5px);
+}
+
+.procura input:hover {
+  filter: none;
 }
 
 .envolope {
@@ -104,6 +115,15 @@ html {
   width: 100%;
 
   visibility: hidden;
+}
+
+@media (max-width: 800px) {
+  .envolope {
+    visibility: hidden;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 }
 
 .conteudo-clima {
@@ -119,9 +139,21 @@ html {
   max-height: 550px;
 }
 
+@media (max-width: 800px) {
+  .conteudo-clima {
+    width: 250px;
+  }
+}
+
 .conteudo-clima img {
   height: 11.5rem;
   margin-bottom: 0.25px;
+}
+
+@media (max-width: 800px) {
+  .conteudo-clima img {
+    height: 8.5rem;
+  }
 }
 
 .conteudo-clima h2 {
@@ -136,11 +168,24 @@ html {
   text-overflow: ellipsis;
 }
 
+@media (max-width: 800px) {
+  .conteudo-clima h2 {
+    font-size: 2.375rem;
+  }
+}
+
 .conteudo-clima h3 {
   font-size: 8rem;
   line-height: 6rem;
   font-weight: 400;
   margin-bottom: 1.25rem;
+}
+
+@media (max-width: 800px) {
+  .conteudo-clima h3 {
+    font-size: 5rem;
+    line-height: 3rem;
+  }
 }
 
 .conteudo-variacoes {
@@ -152,6 +197,12 @@ html {
   max-width: 200px;
   margin-bottom: 0.75rem;
   text-transform: uppercase;
+}
+
+@media (max-width: 800px) {
+  .conteudo-variacoes {
+    max-width: 170px;
+  }
 }
 
 .conteudo-clima::after {
@@ -173,10 +224,25 @@ html {
   z-index: -1;
 }
 
+@media (max-width: 800px) {
+  .conteudo-clima::after {
+    width: 250px;
+    height: 290px;
+    top: 4rem;
+  }
+}
+
 .conteudo-variacoes p {
   font-size: 1.8rem;
   font-weight: 400;
   line-height: 2rem;
+}
+
+@media (max-width: 800px) {
+  .conteudo-variacoes p {
+    font-size: 1.5rem;
+    line-height: initial;
+  }
 }
 
 .conteudo-musica {
@@ -195,6 +261,12 @@ html {
   z-index: 1;
 }
 
+@media (max-width: 800px) {
+  .conteudo-musica {
+    width: 250px;
+  }
+}
+
 .icone-musica {
   width: 8.5rem;
   height: 8.5rem;
@@ -202,10 +274,25 @@ html {
   margin-top: 0rem;
 }
 
+@media (max-width: 800px) {
+  .icone-musica {
+    margin-bottom: 1rem;
+    width: 6.5rem;
+    height: 6.5rem;
+  }
+}
+
 .playlist-caixa {
   width: 100%;
   list-style-type: none;
   visibility: hidden;
+}
+
+@media (max-width: 800px) {
+  .playlist-caixa {
+    font-size: 2.375rem;
+    margin-bottom: 1.75rem;
+  }
 }
 
 .playlist-caixa li {
@@ -222,11 +309,24 @@ html {
   text-transform: uppercase;
 }
 
+@media (max-width: 800px) {
+  .conteudo-musica h2 {
+    font-size: 2.375rem;
+  }
+}
+
 .playlist-caixa li img {
   width: 40px;
   height: 40px;
 
   margin-right: 0.75rem;
+}
+
+@media (max-width: 800px) {
+  .playlist-caixa li img {
+    width: 30px;
+    height: 30px;
+  }
 }
 
 .playlist-caixa li p {
@@ -236,6 +336,12 @@ html {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+@media (max-width: 800px) {
+  .playlist-caixa li p {
+    font-size: 1.5rem;
+  }
 }
 
 .conteudo-musica::after {
@@ -255,4 +361,12 @@ html {
   box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.25);
   filter: blur(4.5px);
   z-index: -1;
+}
+
+@media (max-width: 800px) {
+  .conteudo-musica::after {
+    top: 4rem;
+    width: 250px;
+    height: 330px;
+  }
 }
