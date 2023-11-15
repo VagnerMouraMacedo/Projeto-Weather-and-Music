@@ -205,6 +205,7 @@ html {
 .playlist-caixa {
   width: 100%;
   list-style-type: none;
+  visibility: hidden;
 }
 
 .playlist-caixa li {

@@ -1,8 +1,40 @@
 const input = document.getElementById("input-busca");
 const apiKey = "f09ada60b7a7d1c47ec6a338e0d963ed";
-
 const clientID = "79573352d0be42b29c88be837412dd63";
 const clientSecret = "1d8335b71405417591bc55908d9d4dc5";
+const ulElement = document.querySelector(".playlist-caixa");
+const liElement = ulElement.querySelectorAll("li");
+
+const videoURLs = [
+  "./video/video1.mp4",
+  "./video/video2.mp4",
+  "./video/video3.mp4",
+  "./video/video4.mp4",
+  "./video/video5.mp4",
+  "./video/video6.mp4",
+  "./video/video7.mp4",
+  "./video/video8.mp4",
+  "./video/video9.mp4",
+  "./video/video10.mp4",
+  "./video/video11.mp4",
+  "./video/video12.mp4",
+];
+
+function obterVideosAleatorios(array) {
+  const randomIndex = Math.floor(Math.random() * array.length);
+  return array[randomIndex];
+}
+
+function recarregarVideosNaTela() {
+  const videoElement = document.querySelector(".video");
+  const videoSource = document.getElementById("video-source");
+  const randomVideoURL = obterVideosAleatorios(videoURLs);
+
+  if (videoElement && videoSource) {
+    videoSource.src = randomVideoURL;
+    videoElement.load();
+  }
+}
 
 function movimentoInput(inputValue) {
   const visibility = input.style.visibility;
@@ -52,6 +84,7 @@ input.addEventListener("keyup", function (event) {
 
 document.addEventListener("DOMContentLoaded", () => {
   fecharInput();
+  recarregarVideosNaTela();
 });
 
 async function procurarCidade(city) {
@@ -64,9 +97,9 @@ async function procurarCidade(city) {
       const result = await dados.json();
 
       obterTopAlbunsPorPais(result.sys.country);
-
       mostraClimaNatela(result);
       mostrarEnvelope();
+      recarregarVideosNaTela();
     } else {
       throw new Error();
     }
@@ -148,10 +181,6 @@ async function obterTopAlbunsPorPais(country) {
     alert("Sua pesquisa por musica deu errado!");
   }
 }
-
-const ulElement = document.querySelector(".playlist-caixa");
-
-const liElement = ulElement.querySelectorAll("li");
 
 function mostrarMusicaNaTela(dados) {
   liElement.forEach((liElement, index) => {
